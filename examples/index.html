@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">                                                                                         
+<html xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta content="text/html;charset=UTF-8" http-equiv="Content-Type"/>
+  <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+  <title></title>
+
+  <script src="../dist/jstags.js" type="text/javascript"></script>
+
+</head>
+<body>
+
+  <div class='content'>
+This is a simple prompt for paragraph (textarea) text input:
+
+[prompt:paragraph:Placeholder]
+
+This is a flexible form with specifiable inputs:
+
+[form]
+ [text]
+[/form]
+
+[form]
+ [text]
+ [text]
+[/form]
+
+[form]
+ [text]
+ [select]
+[/form]
+
+Then this is additional text.
+
+## Markdown allowed
+</div>
+
+  <script>
+
+    var el;
+
+    (function() {
+
+      el = document.getElementsByClassName('content')[0]
+
+      var regex = /\[form\](\s*\[[^\/].*\]\s*)*\[\/form\]/g;
+      el.innerHTML = el.innerHTML.replace(regex, function(match, p1) {
+
+        var o = '';
+        o += '<form id="UNIQUE" class="form-control">';
+          //p1.replace(/\[text:\w+\]
+          o += p1;
+          o += '<input class="" />';
+        o += '<br /><button class="btn btn-default" type="submit">Add</button></form>';
+
+        return o;
+
+      })
+
+    })();
+
+  </script>
+
+</body>
+</html>
