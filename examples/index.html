@@ -23,10 +23,10 @@ This is a flexible form with specifiable inputs:
 
 [form]
  [text]
- [text]
+ [text:Email]
 [/form]
 
-[form]
+[form:Submit]
  [text]
  [select]
 [/form]
@@ -44,15 +44,24 @@ Then this is additional text.
 
       el = document.getElementsByClassName('content')[0]
 
-      var regex = /\[form\](\s*\[[^\/].*\]\s*)*\[\/form\]/g;
-      el.innerHTML = el.innerHTML.replace(regex, function(match, p1) {
+      var regex = /\[form:*(\w*)\](\s*\[[^\/].*\]\s*)*\[\/form\]/g;
+      el.innerHTML = el.innerHTML.replace(regex, function replaceFormTag(match, p1, p2) {
 
         var o = '';
         o += '<form id="UNIQUE" class="form-control">';
-          //p1.replace(/\[text:\w+\]
-          o += p1;
-          o += '<input class="" />';
-        o += '<br /><button class="btn btn-default" type="submit">Add</button></form>';
+
+        var innerTag = p2.replace(/\[(\w+):*(\w+)*\]/, function replaceInnerTag(m, pp1, pp2) {
+
+          var placeholder = pp2 || "";
+          var input = '';
+          input += '<input type="text" placeholder="' + placeholder + '" />';
+          return input;
+
+        });
+
+        o += innerTag;
+        var submit = p1 || "Add";
+        o += '<br /><button class="btn btn-default" type="submit">' + submit  + '</button></form>';
 
         return o;
 
