@@ -8,7 +8,7 @@ function replaceFormTag(match, p1, p2, p3) {
   if (uniqueId) o += ' id="' + uniqueId + '"';
   o += ' class="well">';
 
-  var innerTag = contents.replace(/\[(\w+):*(\w+)*\]/, function replaceInnerTag(m, pp1, pp2) {
+  var innerTag = contents.replace(/\[(\w+):*([\s\w]+)*\]/, function replaceInnerTag(m, pp1, pp2) {
 
     var placeholder = pp2 || "";
     var input = '';
@@ -25,18 +25,21 @@ function replaceFormTag(match, p1, p2, p3) {
 
 }
 
+
 function shortCodeForm(el) {
   var regex = /\[form:*(\w+)*:*(\w+)*\](\s*\[[^\/].*\]\s*)*\[\/form\]/g;
   var output = el.innerHTML.replace(regex, replaceFormTag)
   return output;
 }
 
-function replacePrompt(match, p1, p2) {
+
+function replacePrompt(match, p1, p2, p3) {
 
   var o = '',
       placeholder = p2 || "",
+      uniqueId = p3 || "",
       submit = p1 || "Add";
-  o += '<form id="UNIQUE" class="well">';
+  o += '<form id="' + uniqueId + '" class="well">';
   o += '<p><input class="form-control" type="text" placeholder="' + placeholder + '" /></p>';
   o += '<p><button class="btn btn-default" type="submit">' + submit  + '</button></p>\n</form>';
 
@@ -44,8 +47,9 @@ function replacePrompt(match, p1, p2) {
 
 }
 
+
 function shortCodePrompt(el) {
-  var regex = /\[prompt:(\w*):*(\w*)\]/g;
+  var regex = /\[prompt:(\w*):*([\s\w]*):*(\w*)\]/g;
   var output = el.innerHTML.replace(regex, replacePrompt);
   return output;
 }
