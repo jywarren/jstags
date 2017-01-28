@@ -72,16 +72,15 @@ Then this is additional text.
 
     (function() {
 
-      el = document.getElementsByClassName('text-input')[0]
-      el2 = document.getElementsByClassName('text-output')[0]
-      html = document.getElementsByClassName('html-output')[0]
+      el = document.getElementsByClassName('text-input')[0];
+      el2 = document.getElementsByClassName('text-output')[0];
+      html = document.getElementsByClassName('html-output')[0];
 
       el2.innerHTML = shortCodeForm(el);
       html.innerHTML = shortCodeForm(el);
 
       el2.innerHTML = shortCodePrompt(el2);
-      html.innerHTML = shortCodePrompt(html);
-
+      html.innerHTML = shortCodePrompt(html, { nid: 1 });
 
     })();
 
