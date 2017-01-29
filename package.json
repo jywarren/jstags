@@ -1,6 +1,6 @@
 {
   "name": "short-code-forms",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "WordPress-style short codes for generating forms from [form][/form], in JavaScript",
   "repository": {
     "type": "git",

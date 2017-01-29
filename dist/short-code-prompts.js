@@ -41,7 +41,7 @@ function shortCodePrompt(el, options) {
     // if passed as option, may need to bind to local scope?
     options.onComplete = options.onComplete || function onComplete(response) {
       var message = $('#' + uniqueId + ' .prompt-message');
-      if (response == 'true') {
+      if (response === 'true' || response === true) {
         message.html('<i class="fa fa-check" style="color:green;"></i>');
         var input = $('#' + uniqueId + ' .form-control').val();
         var form = $('#' + uniqueId).prepend('<p>' + input + '</p>');
