@@ -44,9 +44,8 @@ function shortCodePrompt(el, options) {
       if (response === 'true' || response === true) {
         message.html('<i class="fa fa-check" style="color:green;"></i>');
         var input = $('#' + uniqueId + ' .form-control').val();
-        var form = $('#' + uniqueId).prepend('<p>' + input + '</p>');
-        var input = $('#' + uniqueId + ' .form-control').val();
-        input.val('');
+        var form = $('#' + uniqueId).before('<p>' + input + '</p>');
+        $('#' + uniqueId + ' .form-control').val('');
       } else {
         message.html('There was an error. Do you need to <a href="/login">log in</a>?');
       }
