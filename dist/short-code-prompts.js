@@ -4,20 +4,6 @@ function shortCodePrompt(el, options) {
 
   options.regex = options.regex || /\[prompt:(\w*):*([\s\w]*):*(\w*)\]/g;
 
-  // to be attached to on each matching form:
-  options.submitForm = options.submitForm || function submitPromptForm(e, before, after) {
-
-    options.submitUrl = options.submitUrl || '/';
-
-    $.post(options.submitUrl, {
-      before: before,
-      after: after
-    })
-     .done(options.onComplete)
-     .fail(options.onFail);
-
-  }
-
   options.replacePrompt = options.replacePrompt || function replacePrompt(match, p1, p2, p3) {
 
     var o = '',
@@ -32,14 +18,16 @@ function shortCodePrompt(el, options) {
     function interceptForm(e) {
       e.preventDefault();
       var input = $('#' + uniqueId + ' .form-control').val();
-      options.submitForm(e, match, input + '\n\n' + match);
+      submitForm(e, match, input + '\n\n' + match);
       var message = $('#' + uniqueId + ' .prompt-message');
       message.html('<i class="fa fa-circle-o-notch fa-spin" style="color:#bbb;"></i>');
       return false;
     }
 
-    // if passed as option, may need to bind to local scope?
-    options.onComplete = options.onComplete || function onComplete(response) {
+    // if passed as option, may need to bind to local scope, or forms will get crossed?
+    // we had this set-able via options but then there was just a single one for all forms, which doesn't work
+    //options.onComplete = options.onComplete || function onComplete(response) {
+    function onComplete(response) {
       var message = $('#' + uniqueId + ' .prompt-message');
       if (response === 'true' || response === true) {
         message.html('<i class="fa fa-check" style="color:green;"></i>');
@@ -52,9 +40,27 @@ function shortCodePrompt(el, options) {
     }
 
     // if passed as option, may need to bind to local scope?
-    options.onFail = options.onFail || function onFail(response) {
+    // same problem as onComplete
+    // options.onFail = options.onFail || function onFail(response) {
+    function onFail(response) {
       var message = $('#' + uniqueId + ' .prompt-message');
       message.html('There was an error. Do you need to <a href="/login">log in</a>?');
+    }
+
+    // to be attached to on each matching form:
+    // same problem as onComplete
+    // options.submitForm = options.submitForm || function submitPromptForm(e, before, after) {
+    function submitForm(e, before, after) {
+ 
+      options.submitUrl = options.submitUrl || '/';
+ 
+      $.post(options.submitUrl, {
+        before: before,
+        after: after
+      })
+       .done(onComplete)
+       .fail(onFail);
+ 
     }
 
     setTimeout(function timeOut() {

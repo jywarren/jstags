@@ -78,10 +78,10 @@ Then this is additional text.
       el2 = document.getElementsByClassName('text-output')[0];
       html = document.getElementsByClassName('html-output')[0];
 
-      el2.innerHTML = shortCodeForm(el, { submitForm: function() {} }); // disable submit; this is just for displaying output
+      el2.innerHTML = shortCodeForm(el); // this will cause double submission but that's OK in the example
       html.innerHTML = shortCodeForm(el);
 
-      el2.innerHTML = shortCodePrompt(el2, { submitForm: function() {} }); // disable submit; this is just for displaying output
+      el2.innerHTML = shortCodePrompt(el2); // this will cause double submission but that's OK in the example
       html.innerHTML = shortCodePrompt(html, { submitUrl: '/wiki/replace/1' }); // set upload URL
 
     })();
