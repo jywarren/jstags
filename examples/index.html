@@ -6,16 +6,18 @@
   <title>Short Code Forms</title>
 
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://use.fontawesome.com/38cd4f8783.js"></script>
 
   <script src="http://code.jquery.com/jquery-3.1.1.min.js" type="text/javascript"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" type="text/javascript"></script>
   <script src="../dist/short-code-forms.js" type="text/javascript"></script>
+  <script src="../dist/short-code-prompts.js" type="text/javascript"></script>
 
   <style>
     body {
       padding: 20px;
     }
-    textarea {
+    .textareas textarea {
       float: left;
       margin-right: 10px;
       width: 45% !important;
@@ -30,11 +32,11 @@
   <h3>Short Code Forms</h3>
   <p><a href="https://github.com/jywarren/short-code-forms">Open Source</a></p>
 
-  <div class="">
+  <div class="textareas">
     <textarea class="text-input form-control">
-This is a simple prompt for paragraph (textarea) text input:
+This is a simple prompt for text input:
 
-[prompt:paragraph:Placeholder]
+[prompt:text:Placeholder message]
 
 [prompt:paragraph:Type something here:uniqueId1]
 
@@ -76,11 +78,11 @@ Then this is additional text.
       el2 = document.getElementsByClassName('text-output')[0];
       html = document.getElementsByClassName('html-output')[0];
 
-      el2.innerHTML = shortCodeForm(el);
+      el2.innerHTML = shortCodeForm(el, { submitForm: function() {} }); // disable submit; this is just for displaying output
       html.innerHTML = shortCodeForm(el);
 
-      el2.innerHTML = shortCodePrompt(el2);
-      html.innerHTML = shortCodePrompt(html, { nid: 1 });
+      el2.innerHTML = shortCodePrompt(el2, { submitForm: function() {} }); // disable submit; this is just for displaying output
+      html.innerHTML = shortCodePrompt(html, { submitUrl: '/wiki/replace/1' }); // set upload URL
 
     })();
 
