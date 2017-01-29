@@ -48,14 +48,14 @@ function shortCodePrompt(el, options) {
         var input = $('#' + uniqueId + ' .form-control').val();
         input.val('');
       } else {
-        message.html('There was an error.');
+        message.html('There was an error. Do you need to <a href="/login">log in</a>?');
       }
     }
 
     // if passed as option, may need to bind to local scope?
     options.onFail = options.onFail || function onFail(response) {
       var message = $('#' + uniqueId + ' .prompt-message');
-      message.html('There was an error.');
+      message.html('There was an error. Do you need to <a href="/login">log in</a>?');
     }
 
     setTimeout(function timeOut() {
